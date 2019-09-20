@@ -15,6 +15,7 @@ public class Match {
     }
 
     public Match() {
+
     }
 
     public String getHomeName() {

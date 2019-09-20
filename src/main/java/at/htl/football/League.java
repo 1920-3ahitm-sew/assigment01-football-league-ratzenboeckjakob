@@ -1,33 +1,41 @@
 package at.htl.football;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class League {
 
-    private List<Team> teams;
+    private List<Team> teams = new ArrayList<>();
 
     public void addMatchResult(Match first) {
-        int guestCount = 0;
-        int homeCount = 0;
+        boolean found = false;
+
 
         if(teams.size() != 0) {
+            found = false;
+            boolean isHomeTeam;
+
             for (int i = 0; i < teams.size(); i++) {
-                if(teams.get(i).equals(first.getGuestName()) || teams.get(i).equals(first.getHomeName())) {
+                if(teams.get(i).getName().equals(first.getGuestName()) || teams.get(i).getName().equals((first.getHomeName()))) {
                     teams.get(i).addMatch(first);
+                    found = true;
+                    isHomeTeam = !teams.get(i).getName().equals(first.getGuestName());
                 }
             }
-        } else {
-            guestCount = 1;
-            homeCount = 1;
-        }
+            if(!found) {
 
-        if(guestCount == 1) {
+                Team team1 = new Team(first.getGuestName());
+                teams.add(team1);
+                teams.get(teams.size() - 1).addMatch(first);
+            }
+        } else {
             Team team1 = new Team(first.getGuestName());
             teams.add(team1);
-        }
-        if(homeCount == 1) {
+            teams.get(0).addMatch(first);
             Team team2 = new Team(first.getHomeName());
             teams.add(team2);
+            teams.get(1).addMatch(first);
         }
     }
 
@@ -36,6 +44,8 @@ public class League {
     }
 
     public List<Team> getTable() {
-        return null;
+        Collections.sort(teams);
+        System.out.println("ja");
+        return teams;
     }
 }

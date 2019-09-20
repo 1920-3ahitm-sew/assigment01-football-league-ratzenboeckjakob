@@ -25,9 +25,15 @@ public class Main {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        printTable(league.getTable());
     }
 
-    private void printTable(List<Team> teams) {
+    private static void printTable(List<Team> teams) {
+        System.out.println("Team            " + "Pts    " + "W    " + "D    " + "L   " + "GF   " + "GA   " + "GD");
 
+        for (int i = 0; i < teams.size(); i++) {
+            System.out.println(teams.get(i).getName());
+        }
     }
 }

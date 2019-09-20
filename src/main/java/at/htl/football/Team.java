@@ -1,6 +1,6 @@
 package at.htl.football;
 
-public class Team extends League implements Comparable {
+public class Team extends League implements Comparable<Team> {
 
     private String name;
     private int points;
@@ -18,7 +18,34 @@ public class Team extends League implements Comparable {
     }
 
     public void addMatch(Match first) {
+        if(first.getHomeName().equals(name)) {
+            if(first.getHomeGoals() > first.getGuestGoals()) {
+                points += 3;
+                wins += 1;
+            } else if(first.getHomeGoals() == first.getGuestGoals()) {
+                points += 1;
+                draws += 1;
+            } else if(first.getHomeGoals() < first.getGuestGoals()) {
+                defeats += 1;
+            }
 
+            goalsReceived += first.getGuestGoals();
+            goalsShot += first.getHomeGoals();
+
+        } else if(first.getGuestName().equals(name)) {
+            if(first.getGuestGoals() > first.getHomeGoals()) {
+                points += 3;
+                wins += 1;
+            } else if(first.getGuestGoals() == first.getHomeGoals()) {
+                points += 1;
+                draws += 1;
+            } else if(first.getGuestGoals() < first.getHomeGoals()) {
+                defeats += 1;
+            }
+
+            goalsReceived += first.getHomeGoals();
+            goalsShot += first.getGuestGoals();
+        }
     }
 
     public String getName() {
@@ -50,11 +77,18 @@ public class Team extends League implements Comparable {
     }
 
     public int getGoalDifference() {
-        return 0;
+        return goalsShot - goalsReceived;
     }
 
     @Override
-    public int compareTo(Object o) {
-        return 0;
+    public int compareTo(Team team) {
+
+        if(team.getPoints() > this.points) {
+            return 1;
+        } if(team.getPoints() < this.points) {
+            return -1;
+        } else {
+            return team.getGoalDifference() - this.getGoalDifference();
+        }
     }
 }
