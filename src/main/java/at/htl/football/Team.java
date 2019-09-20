@@ -1,6 +1,6 @@
 package at.htl.football;
 
-public class Team implements Comparable {
+public class Team extends League implements Comparable {
 
     private String name;
     private int points;
@@ -18,8 +18,6 @@ public class Team implements Comparable {
     }
 
     public void addMatch(Match first) {
-
-
 
     }
 
