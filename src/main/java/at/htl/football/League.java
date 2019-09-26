@@ -45,7 +45,6 @@ public class League {
 
     public List<Team> getTable() {
         Collections.sort(teams);
-        System.out.println("ja");
         return teams;
     }
 }
